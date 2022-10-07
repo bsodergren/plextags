@@ -1,9 +1,9 @@
 
-directory_regex='.*(Test|BiSexual|Pornhub|Studios|Videos)/([A-Za-z0-9]{0,}?).*'
+directory_regex='(Test|BiSexual|Pornhub|Studios|Videos)\/(Channels|Amateur|Downloaded)?\/?([A-Za-z0-9_\. ]{0,})/'
 studio_regex='\/?([a-zA-Z 0-9 -]*|[a-zA-Z 0-9 ~]*|[a-zA-Z 0-9 &]*)\/*$'
 date_regex='([0-9]{0,4}-[0-9]{0,2}-[0-9]{0,2})'
 #genre_regex='[a-zA-Z \/]*\/(group?\/orgy|group?\/fmmm|group?\/fffm|mmf|mff|single|only girls|comp|bimale|trans|blowjob|compilation)(.*)?(\/*.mp4)?'
-genre_regex='[a-zA-Z \/]*\/(group|mmf|mff|single|only girls|bimale|trans|only blowjobs|compilation|Bisexual male|step fantasy|amateur|threesome)(.*)?(\/*.mp4)?'
+genre_regex='[a-zA-Z _0-9\.\/]*\/(group|mmf|mff|single|only girls|bimale|trans|only blowjobs|compilation|Bisexual male|step fantasy|amateur|threesome)(.*)?(\/*.mp4)?'
 info_file_regex="\"?(.*)\"?,\"?(.*)\"?,\"?(.*)\"?,\"?(.*)\"?,\"?(.*)\"?"
 
 

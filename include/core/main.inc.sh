@@ -106,6 +106,27 @@ function main.progressBar.end()
 	vramsteg --remove;
 }
 
+function main.process()
+{
+	declare -n array=$1
+	for i in "${!array[@]}"
+	do
+	  eval $i=\${array[$i]}
+	done
+
+	echo "filename $filename"
+	echo "file $file"
+
+	echo "Studio $Studio"
+	echo "fullpath $fullpath"
+
+	echo "genre $genre"
+
+	echo "library $library"
+	
+
+
+}
 
 function main.search.videos()
 {

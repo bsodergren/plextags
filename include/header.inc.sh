@@ -10,6 +10,12 @@ export __SCRIPT_HOME="${HOME}/scripts/plextags"
 export __INC_MOD_DIR="${__SCRIPT_HOME}/module"
 export __GENRE_MAP_FILE="${__INC_LIB_DIR}/data/genre.txt"
 
+export __MYSQL_DATABASE="pornhub_2"
+export __MYSQL_PORNHUB_TABLE="videos"
+export __MYSQL_VIDEO_TABLE="studios"
+
+declare -gA MYSQL_RESULTS; MYSQL_RESULTS=()
+
 function options.get()
 {
 	local __varname=$1
@@ -76,13 +82,14 @@ else
 	mapfile  -t -d, -c1 __currentDirectoryArr <<< $(pwd)
 fi
 
+
 __current_directory=$(realpath "${__currentDirectoryArr[0]}")
 
 logr INFO "__current_directory ${__current_directory}"
 
 [[ $__current_directory =~ $directory_regex ]] # $pat must be unquoted
 in_dir="${BASH_REMATCH[1]}"
-studio_directory="${BASH_REMATCH[2]}"
+studio_directory="${BASH_REMATCH[3]}"
 
 case "$in_dir" in
 #	"Sites") directory="${__PLEX_HOME}/Sites/" ;;

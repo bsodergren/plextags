@@ -35,49 +35,50 @@ function file.name.backup()
 	echo "$__filename"
 }
 
-# file.get.path
-function file.get.path()
+function file.path()
 {
-	local __file=$1
-	local __type=$2
+
+	declare -n __fileArray=$1
+	local __file="$2"
+	
+	local __file
 	local __filename
 	local __fullpath
-	local __filepath
-	local __out
+	
+	local __studio_dir
 
 	#file: /home/bjorn/plex/XXX/test/Test Studio/mmf/hardcore-dp-on-the-pool-table-28534-720p_full_mp4.mp4
 	#filename: hardcore-dp-on-the-pool-table-28534-720p_full_mp4.mp4
 	#filepath: Test Studio/mmf/
 	#fullpath: /home/bjorn/plex/XXX/test/Test Studio/mmf/
+	
 
-	if [[ -f $__file ]] 
-	then
-		__file=$(realpath ${__file})
-	else 
-		__file=${__file##*/}
+    if [[ -f "$__file" ]] 
+    then
+      __file=$(realpath "${__file}")
+    else 
+      __file="${__file##*/}"
     fi
+    
+    __file="${__file// /__}"
 
-	case $__type in
-		"file")
-			__out=${__file};;
-		"filename")
-			__out=$(basename -- ${__file});;
-		"fullpath")
-			__filename=$(basename -- ${__file})
-			__out=${__file/$__filename/""};;
-		"filepath")
-			__filename=$(basename -- ${__file})
-			__fullpath=${__file/$__filename/""}
-			__out=${__fullpath/$directory/""};;
-		"studiodir")
-			__studio_dir=$(filedb.get.studio)
-			__filename=$(basename -- ${__file})
-			__filepath=${__filepath/$__studio_dir/""}
-			__out=${__filepath}${__filename};;
-	esac
+	__filename=$(basename -- "${__file}")	
+    
+	__fullpath=$(string.trim.dir "${__file}" "${__filename}")
+    
+	__fileArray["file"]="${__file//__/ }"
+	__fileArray["filename"]="${__filename}"	
+	__fileArray["fullpath"]="${__fullpath//__/ }"	
+    __library=$(string.trim.dir "${directory}" "${__PLEX_HOME}" )
+  	__fileArray["library"]=${__library//\//}
+	
+	[[ "$__fullpath" =~ $genre_regex ]] # $pat must be unquoted
+	__genre="${BASH_REMATCH[1]}"
+	__fileArray["genre"]=$__genre
+	__libraryPath=$(string.trim.dir ${__fullpath} "${directory}" )
 
-
-	echo $__out
+	__studio=$(string.trim.dir ${__libraryPath} "${__genre}" )
+    __fileArray["Studio"]="${__studio//__/ }"
 }
 
 function file.comparedate()
